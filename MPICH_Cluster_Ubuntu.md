@@ -178,7 +178,7 @@ ub0    # this will spawn 1 process on ub0
 ###11. Testing
 
 Change directory to your mirror folder and write this MPI helloworld program in a file mpi_hello.c (courtesy of this blog):
-```
+```C++
 #include <stdio.h>
 #include <mpi.h>
 
