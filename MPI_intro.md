@@ -1,7 +1,7 @@
 #MPI
 ##Configuración de Servidores
-MPI cluster
-Tutorial MPI linux
+* MPI cluster
+* Tutorial MPI linux
 
 
 ##Configurar teclado
@@ -31,6 +31,7 @@ gateway 10.0.2.15
 `ssh-keygen -t dsa`
 
 >Enviar Master - Slave(Crea copia del archivo en el otro servidor)
+
 ```
 scp id_dsa.pub slave@ip-slave:~/.ssh/id_dsa.pub
 cat is_dsa.pub >> authorized_keys (Copiar en Archivo authorized_keys)
