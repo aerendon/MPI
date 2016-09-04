@@ -1,4 +1,8 @@
-#MpichCluster
+# MpichCluster
+
+<p align="center"><img src="http://design.ubuntu.com/wp-content/uploads/ubuntu-logo32.png" /></p>
+Simple cluster in Ubuntu
+___
 
 Setting Up an MPICH2 Cluster in Ubuntu
 
@@ -8,7 +12,7 @@ To understand the guide, a basic knowledge of command line usage and the princip
 
 Here we have 4 nodes running Ubuntu server with these host names: ub0,ub1,ub2,ub3;
 
-###1. Defining hostnames in etc/hosts/
+### 1. Defining hostnames in etc/hosts/
 
 Edit `/etc/hosts` like these:
 ```
@@ -37,7 +41,7 @@ or like this:
 ```
 otherwise other hosts will try to connect to localhost when they try to reach ub0.
 
-###2. Installing NFS
+### 2. Installing NFS
 
 NFS allows us to create a folder on the master node and have it synced on all the other nodes. This folder can be used to store programs. To Install NFS just run this in the master node's terminal:
 
@@ -49,7 +53,7 @@ To install the client program on other nodes run this command on each of them:
 
 Note: if you want to be more efficient in controlling several nodes using same commands, ClusterSSH is a nice tool and you can find a basic two-line tutorial here.
 
-###3. Sharing Master Folder
+### 3. Sharing Master Folder
 
 Make a folder in all nodes, we'll store our data and programs in this folder.
 
@@ -67,7 +71,7 @@ Now restart the nfs service on the master node to parse this configuration once 
 
 Note than we store out data and programs only in master node and other nodes will access them with NFS.
 
-###4. Mounting /master in nodes
+### 4. Mounting /master in nodes
 
 Now all we need to do is to mount the folder on the other nodes. This can be done manually each time like this:
 ```
@@ -86,7 +90,7 @@ omid@ub2:~$ sudo mount -a
 omid@ub3:~$ sudo mount -a
 ```
 
-###5. Defining a user for running MPI programs
+### 5. Defining a user for running MPI programs
 
 We define a user with same name and same userid in all nodes with a home directory in `/mirror`.
 
@@ -94,13 +98,13 @@ Here we name it "mpiu"! Also we change the owner of `/mirror` to mpiu:
 
 `omid@ub0:~$ sudo chown mpiu /mirror`
 
-###6. Installing SSH Server
+### 6. Installing SSH Server
 
 Run this command in all nodes in order to install OpenSSH Server
 
 `omid@ub0:~$ sudo apt­-get install openssh-server`
 
-###7. Setting up passwordless SSH for communication between nodes
+### 7. Setting up passwordless SSH for communication between nodes
 
 First we login with our new user to the master node:
 
@@ -139,7 +143,7 @@ Exit and login once again or do a source `~/.bashrc` for the changes to take eff
 
 Now your hostname via ssh command should return the other node's hostname without asking for a password or a passphrase. Check that this works for all the slave nodes.
 
-###8. Installing GCC
+### 8. Installing GCC
 
 To be able to compile all the code on our master node (it's sufficient to do it only there if we do it inside the /mirror folder and all the libraries are in place on other machines) we need a compiler.
 
@@ -147,13 +151,13 @@ You can get gcc and other necessary stuff by installing the build-essential pack
 
 `mpiu@ub0:~$ sudo apt-get install build-essential`
 
-###9.Installing Other Compilers
+### 9.Installing Other Compilers
 
 Other prefered compilers should be installed before installing MPICH.
 
 In this step you may install other compilers such as Inter Fortran, SGI compiler , ...
 
-###10. Installing MPICH2
+### 10. Installing MPICH2
 
 Now the last ingredient we need installed on all the machines is the MPI implementation. You can install MPICH2 using Synaptic by typing:
 
@@ -166,7 +170,8 @@ To test that the program did indeed install successfully enter this on all the m
 mpiu@ub0:~$  which mpiexec
 mpiu@ub0:~$  which mpirun
 ```
-###11. setting up a machinefile
+
+### 11. setting up a machinefile
 
 Create a file called "machinefile" in mpiu's home directory with node names followed by a colon and a number of processes to spawn:
 ```
@@ -175,7 +180,7 @@ ub2:2  # this will spawn 2 processes on ub2
 ub1    # this will spawn 1 process on ub1
 ub0    # this will spawn 1 process on ub0
 ```
-###11. Testing
+### 11. Testing
 
 Change directory to your mirror folder and write this MPI helloworld program in a file mpi_hello.c (courtesy of this blog):
 ```C++
